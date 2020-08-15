@@ -13,16 +13,10 @@ defmodule YahooWrapperWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", YahooWrapperWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   # Other scopes may use custom stacks.
-  # scope "/api", YahooWrapperWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", YahooWrapperWeb do
+    pipe_through :api
+  end
 
   # Enables LiveDashboard only for development
   #
@@ -38,5 +32,13 @@ defmodule YahooWrapperWeb.Router do
       pipe_through :browser
       live_dashboard "/dashboard", metrics: YahooWrapperWeb.Telemetry
     end
+  end
+
+  scope "/", YahooWrapperWeb do
+    pipe_through :browser
+
+    # This route declaration MUST be below everything else! Else, it will
+    # override the rest of the routes, even the `/api` routes we've set above.
+    get "/*path", PageController, :index
   end
 end

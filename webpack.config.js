@@ -17,7 +17,7 @@ module.exports = (env, options) => {
       ]
     },
     entry: {
-      'app': './assets/js/app.js'
+      'app': './assets/js/app.tsx'
     },
     output: {
       filename: '[name].js',
@@ -28,7 +28,7 @@ module.exports = (env, options) => {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|jsx|ts|tsx)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader'
@@ -51,6 +51,6 @@ module.exports = (env, options) => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
     }
-    .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
+    // .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
   }
 };
